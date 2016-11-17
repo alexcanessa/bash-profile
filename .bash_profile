@@ -76,7 +76,7 @@
     source ~/.profile
 
 #   Load personal variables
-    source ~/.bash_variables
+    source ~/Sites/alexcanessa/profile/.bash_variables
 
 #   Add color to terminal
 #   (this is all commented out as I use Mac Terminal Profiles)
