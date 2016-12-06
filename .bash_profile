@@ -26,6 +26,15 @@
       git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
     }
 
+#   Add git autocomplete
+#   ------------------------------------------------------------
+
+    GIT_COMPLETION=~/Sites/alexcanessa/profile/.git-completion.bash
+
+    if [ -f $GIT_COMPLETION ]; then
+      . $GIT_COMPLETION
+    fi
+
 #   Change Prompt
 #   ------------------------------------------------------------
     function prompt {
@@ -56,7 +65,8 @@
 #   ------------------------------------------------------------
     export PATH="$PATH:/usr/local/bin/"
     export PATH="/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
-
+    export PATH="$HOME/.composer/vendor/bin:$PATH"
+    
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 #   ------------------------------------------------------------
     export EDITOR=/usr/bin/nano
@@ -311,6 +321,9 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grab
 #   ---------------------------------------
   
     alias sshalex='ssh alex@alexcanessa.me'
+    alias sshvf='ssh dddev@eservices.vf.dddev.io'
+    alias sshneon='ssh thor@neon.dddev.io -i ~/.ssh/digitaldetox.pem'
+    alias sshjenkins='ssh dddev@jenkins.dddev.io'
     
 #   ---------------------------------------
 #   10. REMINDERS & NOTES
