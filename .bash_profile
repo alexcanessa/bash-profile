@@ -12,7 +12,7 @@
 #  7.  System Operations & Information
 #  8.  Web Development
 #  9.  SSH Connection
-#  10.  Reminders & Notes
+#  10.  Git
 #
 #  ---------------------------------------------------------------------------
 
@@ -20,73 +20,58 @@
 #   1. ENVIRONMENT CONFIGURATION
 #   -------------------------------
 
-#   Add git branch
-#   ------------------------------------------------------------
-    parse_git_branch() {
-      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-    }
-
-#   Add git autocomplete
-#   ------------------------------------------------------------
-
-    GIT_COMPLETION=~/Sites/alexcanessa/profile/.git-completion.bash
-
-    if [ -f $GIT_COMPLETION ]; then
-      . $GIT_COMPLETION
-    fi
-
 #   Change Prompt
 #   ------------------------------------------------------------
-    function prompt {
-      local BLACK="\[\033[0;30m\]"
-      local BLACKBOLD="\[\033[1;30m\]"
-      local RED="\[\033[0;31m\]"
-      local REDBOLD="\[\033[1;31m\]"
-      local GREEN="\[\033[0;32m\]"
-      local GREENBOLD="\[\033[1;32m\]"
-      local YELLOW="\[\033[0;33m\]"
-      local YELLOWBOLD="\[\033[1;33m\]"
-      local BLUE="\[\033[0;34m\]"
-      local BLUEBOLD="\[\033[1;34m\]"
-      local PURPLE="\[\033[0;35m\]"
-      local PURPLEBOLD="\[\033[1;35m\]"
-      local CYAN="\[\033[0;36m\]"
-      local CYANBOLD="\[\033[1;36m\]"
-      local WHITE="\[\033[0;37m\]"
-      local WHITEBOLD="\[\033[1;37m\]"
-      local RESETCOLOR="\[\e[00m\]"
+function prompt {
+  local BLACK="\[\033[0;30m\]"
+  local BLACKBOLD="\[\033[1;30m\]"
+  local RED="\[\033[0;31m\]"
+  local REDBOLD="\[\033[1;31m\]"
+  local GREEN="\[\033[0;32m\]"
+  local GREENBOLD="\[\033[1;32m\]"
+  local YELLOW="\[\033[0;33m\]"
+  local YELLOWBOLD="\[\033[1;33m\]"
+  local BLUE="\[\033[0;34m\]"
+  local BLUEBOLD="\[\033[1;34m\]"
+  local PURPLE="\[\033[0;35m\]"
+  local PURPLEBOLD="\[\033[1;35m\]"
+  local CYAN="\[\033[0;36m\]"
+  local CYANBOLD="\[\033[1;36m\]"
+  local WHITE="\[\033[0;37m\]"
+  local WHITEBOLD="\[\033[1;37m\]"
+  local RESETCOLOR="\[\e[00m\]"
 
-      export PS1="\n$PURPLE ϟ $GREEN\u: $WHITE\w$BLUE\$(parse_git_branch)\n $GREEN $ $RESETCOLOR"
-    }
+  export PS1="\n$PURPLE ϟ $GREEN\u: $WHITE\w$BLUE\$(parse_git_branch)\n $GREEN $ $RESETCOLOR"
+}
 
-    prompt
+prompt
 
 #   Set Paths
 #   ------------------------------------------------------------
-    export PATH="$PATH:/usr/local/bin/"
-    export PATH="/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
-    export PATH="$HOME/.composer/vendor/bin:$PATH"
-    
+export PATH="$PATH:/usr/local/bin/"
+export PATH="/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 #   ------------------------------------------------------------
-    export EDITOR=/usr/bin/nano
+export EDITOR=/usr/bin/nano
 
 #   Set default blocksize for ls, df, du
 #   from this: http://hints.macworld.com/comment.php?mode=view&cid=24491
 #   ------------------------------------------------------------
-    export BLOCKSIZE=1k
+export BLOCKSIZE=1k
 
 #   Add nvm
-    export NVM_DIR="$HOME/.nvm"
-    source "$NVM_DIR/nvm.sh"
+export NVM_DIR="$HOME/.nvm"
+source "$NVM_DIR/nvm.sh"
 
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 #   Load profile
-    source ~/.profile
+source ~/.profile
 
 #   Load personal variables
-    source ~/Sites/alexcanessa/profile/.bash_variables
+source ~/Sites/alexcanessa/profile/.bash_variables
 
 #   Add color to terminal
 #   (this is all commented out as I use Mac Terminal Profiles)
@@ -313,44 +298,49 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grab
 
 #   httpDebug:  Download a web page and show info on what took time
 #   -------------------------------------------------------------------
-    httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; }
+httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; }
 
 
 #   ---------------------------------------
 #   9. SSH Connection
 #   ---------------------------------------
+
+alias sshalex='ssh alex@alexcanessa.me'
+alias sshvf='ssh dddev@eservices.vf.dddev.io'
+alias sshneon='ssh thor@neon.dddev.io -i ~/.ssh/digitaldetox.pem'
+alias sshjenkins='ssh dddev@jenkins.dddev.io'
+
+#   ---------------------------------------
+#   9. SSH Connection
+#   ----
+#   
+#   Add git branch
+#   ------------------------------------------------------------
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+#   Add git autocomplete
+#   ------------------------------------------------------------
+
+GIT_COMPLETION=~/Sites/alexcanessa/profile/.git-completion.bash
+
+if [ -f $GIT_COMPLETION ]; then
+  . $GIT_COMPLETION
+fi
+
+#   Git tools
+#   ------------------------------------------------------------
+
+alias gitrm='git branch --merged | egrep -v "(^\*|develop|master)" | xargs git branch -d'
+alias gitclean='git branch | egrep -v "(^\*|develop|master)" | xargs git branch -D'
+
+gitmkb () {
+  if [ $2 ]; then
+    git checkout $2
+    git pull
+  fi
   
-    alias sshalex='ssh alex@alexcanessa.me'
-    alias sshvf='ssh dddev@eservices.vf.dddev.io'
-    alias sshneon='ssh thor@neon.dddev.io -i ~/.ssh/digitaldetox.pem'
-    alias sshjenkins='ssh dddev@jenkins.dddev.io'
-    
-#   ---------------------------------------
-#   10. REMINDERS & NOTES
-#   ---------------------------------------
-
-#   remove_disk: spin down unneeded disk
-#   ---------------------------------------
-#   diskutil eject /dev/disk1s3
-
-#   to change the password on an encrypted disk image:
-#   ---------------------------------------
-#   hdiutil chpass /path/to/the/diskimage
-
-#   to mount a read-only disk image as read-write:
-#   ---------------------------------------
-#   hdiutil attach example.dmg -shadow /tmp/example.shadow -noverify
-
-#   mounting a removable drive (of type msdos or hfs)
-#   ---------------------------------------
-#   mkdir /Volumes/Foo
-#   ls /dev/disk*   to find out the device to use in the mount command)
-#   mount -t msdos /dev/disk1s1 /Volumes/Foo
-#   mount -t hfs /dev/disk1s1 /Volumes/Foo
-
-#   to create a file of a given size: /usr/sbin/mkfile or /usr/bin/hdiutil
-#   ---------------------------------------
-#   e.g.: mkfile 10m 10MB.dat
-#   e.g.: hdiutil create -size 10m 10MB.dmg
-#   the above create files that are almost all zeros - if random bytes are desired
-#   then use: ~/Dev/Perl/randBytes 1048576 > 10MB.dat
+  git branch $1
+  git checkout $1
+}
