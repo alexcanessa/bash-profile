@@ -20,32 +20,6 @@
 #   1. ENVIRONMENT CONFIGURATION
 #   -------------------------------
 
-#   Change Prompt
-#   ------------------------------------------------------------
-function prompt {
-  local BLACK="\[\033[0;30m\]"
-  local BLACKBOLD="\[\033[1;30m\]"
-  local RED="\[\033[0;31m\]"
-  local REDBOLD="\[\033[1;31m\]"
-  local GREEN="\[\033[0;32m\]"
-  local GREENBOLD="\[\033[1;32m\]"
-  local YELLOW="\[\033[0;33m\]"
-  local YELLOWBOLD="\[\033[1;33m\]"
-  local BLUE="\[\033[0;34m\]"
-  local BLUEBOLD="\[\033[1;34m\]"
-  local PURPLE="\[\033[0;35m\]"
-  local PURPLEBOLD="\[\033[1;35m\]"
-  local CYAN="\[\033[0;36m\]"
-  local CYANBOLD="\[\033[1;36m\]"
-  local WHITE="\[\033[0;37m\]"
-  local WHITEBOLD="\[\033[1;37m\]"
-  local RESETCOLOR="\[\e[00m\]"
-
-  export PS1="\n$PURPLE ϟ $GREEN\u: $WHITE\w$BLUE\$(parse_git_branch)\n $GREEN $ $RESETCOLOR"
-}
-
-prompt
-
 #   Set Paths
 #   ------------------------------------------------------------
 export PATH="$PATH:/usr/local/bin/"
@@ -71,7 +45,7 @@ source "$NVM_DIR/nvm.sh"
 source ~/.profile
 
 #   Load personal variables
-source ~/Sites/alexcanessa/profile/.bash_variables
+source /Users/alexcanessa/Sites/alexcanessa/bash-profile/.bash_variables
 
 #   Add color to terminal
 #   (this is all commented out as I use Mac Terminal Profiles)
@@ -84,6 +58,45 @@ source ~/Sites/alexcanessa/profile/.bash_variables
 #   -----------------------------
 #   2. MAKE TERMINAL BETTER
 #   -----------------------------
+
+
+#   Styling the 
+#   ------------------------------------------------------------
+function prompt {
+  local BLACK="\[\033[0;30m\]"
+  local BLACKBOLD="\[\033[1;30m\]"
+  local RED="\[\033[0;31m\]"
+  local REDBOLD="\[\033[1;31m\]"
+  local GREEN="\[\033[0;32m\]"
+  local GREENBOLD="\[\033[1;32m\]"
+  local YELLOW="\[\033[0;33m\]"
+  local YELLOWBOLD="\[\033[1;33m\]"
+  local BLUE="\[\033[0;34m\]"
+  local BLUEBOLD="\[\033[1;34m\]"
+  local PURPLE="\[\033[0;35m\]"
+  local PURPLEBOLD="\[\033[1;35m\]"
+  local CYAN="\[\033[0;36m\]"
+  local CYANBOLD="\[\033[1;36m\]"
+  local WHITE="\[\033[0;37m\]"
+  local WHITEBOLD="\[\033[1;37m\]"
+  local RESETCOLOR="\[\e[00m\]"
+
+  export PS1="\n$PURPLE ϟ $GREEN\u: $WHITE\w$BLUE\$(parse_git_branch)\n $GREEN $ $RESETCOLOR"
+}
+
+function setBackground {
+  osascript -e "tell application \"iTerm\"
+    set current_terminal to (current terminal)
+    tell current_terminal
+      set current_session to (current session)
+      tell current_session
+        set background color to $1
+      end tell
+    end tell
+  end tell"
+}
+
+prompt
 
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
@@ -107,6 +120,7 @@ alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable 
 alias show_options='shopt'                  # Show_options: display bash options settings
 alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
 alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
+alias ppwd='pwd | pbcopy'                   # ppwd:         Copies current path in the clipboard
 mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
 trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
 ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
@@ -323,7 +337,7 @@ parse_git_branch() {
 #   Add git autocomplete
 #   ------------------------------------------------------------
 
-GIT_COMPLETION=~/Sites/alexcanessa/profile/.git-completion.bash
+GIT_COMPLETION=/Users/alexcanessa/Sites/alexcanessa/bash-profile/.git-completion.bash
 
 if [ -f $GIT_COMPLETION ]; then
   . $GIT_COMPLETION
@@ -343,4 +357,10 @@ gitmkb () {
   
   git branch $1
   git checkout $1
+}
+
+gitco () {
+  git fetch
+  git checkout "origin/$1" -b $1
+  git pull
 }
