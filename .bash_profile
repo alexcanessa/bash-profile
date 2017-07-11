@@ -25,6 +25,8 @@
 export PATH="$PATH:/usr/local/bin/"
 export PATH="/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
+export ADB=/Applications/Genymotion.app/Contents/MacOS/tools
+export PATH="$ADB:$PATH"
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 #   ------------------------------------------------------------
@@ -53,7 +55,6 @@ source /Users/alexcanessa/Sites/alexcanessa/bash-profile/.bash_variables
 #   ------------------------------------------------------------
 #   export CLICOLOR=1
 #   export LSCOLORS=ExFxBxDxCxegedabagacad
-
 
 #   -----------------------------
 #   2. MAKE TERMINAL BETTER
@@ -325,7 +326,7 @@ alias sshneon='ssh thor@neon.dddev.io -i ~/.ssh/digitaldetox.pem'
 alias sshjenkins='ssh dddev@jenkins.dddev.io'
 
 #   ---------------------------------------
-#   9. SSH Connection
+#   10. Git
 #   ----
 #   
 #   Add git branch
