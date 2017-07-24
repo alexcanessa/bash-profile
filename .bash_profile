@@ -350,12 +350,12 @@ fi
 alias gitrm='git branch --merged | egrep -v "(^\*|develop|master)" | xargs git branch -d'
 alias gitclean='git branch | egrep -v "(^\*|develop|master)" | xargs git branch -D'
 
-gitrmt () {
+git_rmt () {
   git tag -d $1
   git push origin :refs/tags/$1
 }
 
-gitmkb () {
+git_mkb () {
   if [ $2 ]; then
     git checkout $2
     git pull
@@ -365,7 +365,11 @@ gitmkb () {
   git checkout $1
 }
 
-gitco () {
+git_find_com () {
+  git log --all --oneline | grep $1
+}
+
+git_co () {
   git fetch
   git checkout "origin/$1" -b $1
   git pull
