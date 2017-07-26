@@ -374,3 +374,11 @@ git_co () {
   git checkout "origin/$1" -b $1
   git pull
 }
+
+git_list () {
+  echo "Getting local repos..."
+  find ~ -name ".git" | while read line
+  do
+    echo $(dirname -- "$line")
+  done
+}
