@@ -377,7 +377,7 @@ git_co () {
 
 git_list () {
   echo "Getting local repos..."
-  find ~ -name ".git" | while read line
+  find ~ -name ".git" -d | while read line
   do
     echo $(dirname -- "$line")
   done
