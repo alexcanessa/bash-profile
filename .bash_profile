@@ -27,6 +27,7 @@ export PATH="/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/s
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 export ADB=/Applications/Genymotion.app/Contents/MacOS/tools
 export PATH="$ADB:$PATH"
+export PATH=$HOME/Library/Python/3.6/bin:$PATH
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 #   ------------------------------------------------------------
