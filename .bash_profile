@@ -348,15 +348,15 @@ fi
 #   Git tools
 #   ------------------------------------------------------------
 
-alias gitrm='git branch --merged | egrep -v "(^\*|develop|master)" | xargs git branch -d'
-alias gitclean='git branch | egrep -v "(^\*|develop|master)" | xargs git branch -D'
+alias git-rm='git branch --merged | egrep -v "(^\*|develop|master)" | xargs git branch -d'
+alias git-clean='git branch | egrep -v "(^\*|develop|master)" | xargs git branch -D'
 
-git_rmt () {
+git-rmt () {
   git tag -d $1
   git push origin :refs/tags/$1
 }
 
-git_mkb () {
+git-mkb () {
   if [ $2 ]; then
     git checkout $2
     git pull
@@ -366,17 +366,17 @@ git_mkb () {
   git checkout $1
 }
 
-git_find_com () {
+git-find-com () {
   git log --all --oneline | grep $1
 }
 
-git_co () {
+git-co () {
   git fetch
   git checkout "origin/$1" -b $1
   git pull
 }
 
-git_list () {
+git-list () {
   echo "Getting local repos..."
   find ~ -name ".git" -d | while read line
   do
